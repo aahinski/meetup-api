@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update meetup</title>
+</head>
+<body>
+<form action="#" th:action="@{/meetups/update/{id}}" th:object="${meetup}" method="post">
+    <label for="theme">Theme</label>
+    <input type="text" th:field="*{theme}" id="theme" placeholder="Theme">
+    <label for="description">Description</label>
+    <input type="text" th:field="*{description}" id="description" placeholder="Description">
+    <label for="timestamp">Timestamp</label>
+    <input type="time" th:field="*{timestamp}" id="timestamp" placeholder="Timestamp" step="1">
+    <label for="place">Place</label>
+    <input type="text" th:field="*{place}" id="place" placeholder="Place">
+    <input type="submit" value="Update User">
+</form>
+</body>
+</html>

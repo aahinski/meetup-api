@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new meetup</title>
+</head>
+<body>
+<form th:action="@{/meetups/add}" method="post">
+    <input type="text" name="theme" placeholder="Theme">
+    <textarea name = "description" placeholder="Description"></textarea>
+    <input type="datetime-local" name="timestamp" placeholder="Timestamp" format="2018-06-12 19:30">
+    <input type="text" name="place" placeholder="Place">
+    <input type="submit" value="Add new meetup">
+</form>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Meetups</title>
+</head>
+<body>
+<div th:switch="${meetups}">
+    <h2 th:case="null">No meetups yet :(</h2>
+    <div th:case="*">
+        <h2>Meetups</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Theme</th>
+                <th>Time</th>
+                <th>Place</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="meetup : ${meetups}">
+                <td th:text="${meetup.id}"></td>
+                <td th:text="${meetup.theme}"></td>
+                <td th:text="${meetup.time}"></td>
+                <td th:text="${meetup.place}"></td>
+                <td><a th:href="@{/meetups/update/{id}(id=${meetup.id})}">Update</a></td>
+                <td><a th:href="@{/meetups/delete/{id}(id=${meetup.id})}">Delete</a></td>
+                <td><a th:href="@{/meetups/{id}(id=${meetup.id})}">Full description</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/meetups/add">Add new meetup</a></p>
+</div>
+</body>
+</html>
