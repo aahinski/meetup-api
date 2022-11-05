@@ -3,7 +3,6 @@ package com.ahinski.meetupapi.controller;
 import com.ahinski.meetupapi.model.Meetup;
 import com.ahinski.meetupapi.service.MeetupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,7 @@ public class MeetupController {
         return "meetups";
     }
 
-    @DeleteMapping("/meetups/delete/{id}")
+    @GetMapping("/meetups/delete/{id}")
     public String deleteMeetup(@PathVariable(value="id") Long id, Model model) {
         Meetup meetup = this.meetupService.getMeetupById(id);
         this.meetupService.deleteMeetup(meetup);
@@ -42,9 +41,24 @@ public class MeetupController {
         return "update-meetup";
     }
 
-    @PostMapping("/meetups/update")
-    public String updateMeetup(@ModelAttribute Meetup meetup) {
-        this.meetupService.addMeetup(meetup);
+    @PostMapping("/meetups/update/{id}")
+    public String updateMeetup(Model model,
+                            @RequestParam Long id,
+                            @RequestParam String theme,
+                            @RequestParam String description,
+                            @RequestParam String timestamp,
+                               @RequestParam String organizer,
+                            @RequestParam String place)
+    {
+        Meetup meetup = new Meetup();
+        meetup.setId(id);
+        meetup.setTheme(theme);
+        meetup.setDescription(description);
+        meetup.setTimestamp(Timestamp.valueOf(timestamp.replace("T", " ") + ":00"));
+        meetup.setOrganizer(organizer);
+        meetup.setPlace(place);
+
+        this.meetupService.updateMeetup(meetup);
         return "redirect:/meetups";
     }
 
@@ -58,14 +72,14 @@ public class MeetupController {
                             @RequestParam String theme,
                             @RequestParam String description,
                             @RequestParam String timestamp,
+                            @RequestParam String organizer,
                             @RequestParam String place)
     {
         Meetup meetup = new Meetup();
-        System.out.println(timestamp);
-        System.out.println(timestamp.replace("T", "") + ":00");
         meetup.setTheme(theme);
         meetup.setDescription(description);
         meetup.setTimestamp(Timestamp.valueOf(timestamp.replace("T", " ") + ":00"));
+        meetup.setOrganizer(organizer);
         meetup.setPlace(place);
 
         this.meetupService.addMeetup(meetup);

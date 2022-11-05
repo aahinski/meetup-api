@@ -5,7 +5,7 @@
     <title>Meetups</title>
 </head>
 <body>
-<div th:switch="${meetups}">
+<div th:switch="${meetupList}">
     <h2 th:case="null">No meetups yet :(</h2>
     <div th:case="*">
         <h2>Meetups</h2>
@@ -15,14 +15,16 @@
                 <th>Id</th>
                 <th>Theme</th>
                 <th>Time</th>
+                <th>Organizer</th>
                 <th>Place</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="meetup : ${meetups}">
+            <tr th:each="meetup : ${meetupList}">
                 <td th:text="${meetup.id}"></td>
                 <td th:text="${meetup.theme}"></td>
-                <td th:text="${meetup.time}"></td>
+                <td th:text="${meetup.timestamp}"></td>
+                <td th:text="${meetup.organizer}"></td>
                 <td th:text="${meetup.place}"></td>
                 <td><a th:href="@{/meetups/update/{id}(id=${meetup.id})}">Update</a></td>
                 <td><a th:href="@{/meetups/delete/{id}(id=${meetup.id})}">Delete</a></td>
