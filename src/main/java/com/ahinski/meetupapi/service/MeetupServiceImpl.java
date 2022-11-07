@@ -11,12 +11,8 @@ import java.util.List;
 @Service
 public class MeetupServiceImpl implements MeetupService {
 
-    private MeetupDAO meetupDAO;
-
     @Autowired
-    public void setMeetupDAO(MeetupDAO meetupDAO) {
-        this.meetupDAO = meetupDAO;
-    }
+    private MeetupDAO meetupDAO;
 
     @Override
     @Transactional

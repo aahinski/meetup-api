@@ -12,12 +12,8 @@ import java.util.List;
 @Repository
 public class MeetupDAOImpl implements MeetupDAO {
 
-    private SessionFactory sessionFactory;
-
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    private SessionFactory sessionFactory;
 
     @Override
     public void addMeetup(Meetup meetup) {

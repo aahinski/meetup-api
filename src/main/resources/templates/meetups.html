@@ -5,8 +5,8 @@
     <title>Meetups</title>
 </head>
 <body>
-<div th:switch="${meetupList}">
-    <h2 th:case="null">No meetups yet :(</h2>
+<div th:switch="${meetupList.size()}">
+    <h2 th:case="0">No meetups yet :(</h2>
     <div th:case="*">
         <h2>Meetups</h2>
         <table>

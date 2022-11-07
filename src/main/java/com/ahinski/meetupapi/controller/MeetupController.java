@@ -13,11 +13,12 @@ import java.util.List;
 @Controller
 public class MeetupController {
 
+    @Autowired
     private MeetupService meetupService;
 
-    @Autowired
-    public void setMeetupService(MeetupService meetupService) {
-        this.meetupService = meetupService;
+    @GetMapping("/")
+    public String redirectToMeetupList(Model model) {
+        return "redirect:/meetups";
     }
 
     @GetMapping("/meetups")
@@ -35,22 +36,22 @@ public class MeetupController {
     }
 
     @GetMapping("/meetups/update/{id}")
-    public String updateMeetup(@PathVariable(value="id") Long id, Model model) {
+    public String updateMeetupGet(@PathVariable(value="id") Long id, Model model) {
         Meetup meetup = this.meetupService.getMeetupById(id);
         model.addAttribute("meetup", meetup);
-        return "update-meetup";
+        return "meetup-update";
     }
 
     @PostMapping("/meetups/update/{id}")
-    public String updateMeetup(Model model,
+    public String updateMeetupPost(Model model,
                             @RequestParam Long id,
                             @RequestParam String theme,
                             @RequestParam String description,
-                            @RequestParam String timestamp,
-                               @RequestParam String organizer,
+                            @RequestParam String timestamp, @RequestParam String organizer,
                             @RequestParam String place)
     {
         Meetup meetup = new Meetup();
+
         meetup.setId(id);
         meetup.setTheme(theme);
         meetup.setDescription(description);
@@ -63,12 +64,12 @@ public class MeetupController {
     }
 
     @GetMapping("/meetups/add")
-    public String addMeetup(Model model) {
-        return "add-meetup";
+    public String addMeetupGet(Model model) {
+        return "meetup-add";
     }
 
     @PostMapping("/meetups/add")
-    public String addMeetup(Model model,
+    public String addMeetupPost(Model model,
                             @RequestParam String theme,
                             @RequestParam String description,
                             @RequestParam String timestamp,
@@ -76,6 +77,7 @@ public class MeetupController {
                             @RequestParam String place)
     {
         Meetup meetup = new Meetup();
+
         meetup.setTheme(theme);
         meetup.setDescription(description);
         meetup.setTimestamp(Timestamp.valueOf(timestamp.replace("T", " ") + ":00"));
